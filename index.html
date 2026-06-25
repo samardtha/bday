@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Delivery For You ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #fdf6f6;
+            --envelope-color: #f3d1d1;
+            --envelope-dark: #e6b2b2;
+            --letter-color: #ffffff;
+            --text-color: #5a4a4a;
+            --accent-color: #d4a373;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden;
+        }
+
+        .envelope-wrapper {
+            position: relative;
+            width: 320px;
+            height: 220px;
+            background-color: var(--envelope-dark);
+            box-shadow: 0 15px 35px rgba(90, 74, 74, 0.15);
+            cursor: pointer;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .envelope-wrapper:hover { 
+            transform: scale(1.04); 
+        }
+
+        /* Envelope Flaps */
+        .envelope-wrapper::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 0; height: 0;
+            border-style: solid; border-width: 0 0 220px 320px;
+            border-color: transparent transparent var(--envelope-color) transparent; z-index: 3;
+        }
+
+        .envelope-wrapper::after {
+            content: ''; position: absolute; top: 0; right: 0; width: 0; height: 0;
+            border-style: solid; border-width: 0 320px 220px 0;
+            border-color: transparent var(--envelope-color) transparent transparent; z-index: 3;
+        }
+
+        .top-flap {
+            position: absolute; top: 0; left: 0; width: 0; height: 0;
+            border-style: solid; border-width: 120px 160px 0 160px;
+            border-color: var(--envelope-dark) transparent transparent transparent;
+            transform-origin: top; transition: transform 0.6s ease-in-out; z-index: 4;
+        }
+
+        .wax-seal {
+            position: absolute; top: 105px; left: 142px; width: 36px; height: 36px;
+            background: radial-gradient(circle, #b83232 40%, #8a1f1f 100%);
+            border-radius: 50%; z-index: 5; box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+            display: flex; justify-content: center; align-items: center; color: #fff;
+            font-size: 14px; transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .recipient-name {
+            position: absolute; bottom: 25px; width: 100%; text-align: center;
+            font-family: 'Great Vibes', cursive; font-size: 2.6rem; color: var(--text-color);
+            z-index: 5; pointer-events: none; text-shadow: 1px 1px 3px rgba(255,255,255,0.7);
+        }
+
+        /* Letter Styling */
+        .letter {
+            position: absolute; bottom: 5px; left: 15px; width: 290px; height: 200px;
+            background-color: var(--letter-color); border-radius: 6px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08); z-index: 2;
+            transition: transform 0.7s cubic-bezier(0.19, 1, 0.22, 1), height 0.7s ease;
+            padding: 25px 20px; box-sizing: border-box; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center; opacity: 0;
+        }
+
+        .letter h1 { font-family: 'Great Vibes', cursive; font-size: 2.4rem; margin: 0 0 8px 0; color: #b83232; }
+        .letter p { font-size: 0.85rem; color: var(--text-color); line-height: 1.5; margin: 0 0 18px 0; font-weight: 300; }
+
+        .enter-btn {
+            background-color: var(--accent-color); color: white; border: none;
+            padding: 9px 20px; font-family: 'Montserrat', sans-serif; font-size: 0.75rem;
+            letter-spacing: 1.5px; text-transform: uppercase; border-radius: 25px; cursor: pointer;
+            box-shadow: 0 4px 10px rgba(212, 163, 115, 0.4); transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        .enter-btn:hover { background-color: #c39262; transform: translateY(-1px); }
+
+        /* Animation Classes triggered via JS */
+        .envelope-wrapper.open .top-flap { transform: rotateX(180deg); z-index: 1; }
+        .envelope-wrapper.open .wax-seal { opacity: 0; transform: scale(0.5); pointer-events: none; }
+        .envelope-wrapper.open .letter { transform: translateY(-130px); height: 250px; z-index: 4; opacity: 1; }
+    </style>
+</head>
+<body>
+
+    <div class="envelope-wrapper" id="envelope" onclick="openEnvelope()">
+        <div class="top-flap"></div>
+        <div class="wax-seal">❤</div>
+        <div class="recipient-name">For Birthday Girl ✨</div>
+        
+        <div class="letter">
+            <h1>Happy Birthday!</h1>
+            <p>Today is entirely yours. I made a digital getaway just to look back at our favorite moments.</p>
+            <button class="enter-btn" onclick="enterSite(event)">Step Inside →</button>
+        </div>
+    </div>
+
+    <script>
+        function openEnvelope() {
+            document.getElementById('envelope').classList.add('open');
+        }
+
+        function enterSite(event) {
+            event.stopPropagation(); // Stops envelope from re-clicking
+            window.location.href = "main.html"; // Jumps to next file
+        }
+    </script>
+</body>
+</html>

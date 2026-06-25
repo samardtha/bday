@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Memory Lane ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            background-color: #fdf6f6;
+            color: #5a4a4a;
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 60px 20px;
+            box-sizing: border-box;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        header h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4.5rem;
+            color: #b83232;
+            margin: 0 0 10px 0;
+        }
+
+        header p {
+            font-size: 1rem;
+            font-weight: 300;
+            max-width: 500px;
+            line-height: 1.6;
+            margin: 0 auto;
+        }
+
+        /* Responsive Photo Gallery */
+        .gallery-container {
+            max-width: 1000px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 10px;
+        }
+
+        .photo-card {
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(90, 74, 74, 0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(90, 74, 74, 0.12);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover; /* Keeps image proportions clean */
+            border-radius: 4px;
+            background-color: #f3d1d1; /* Placeholder fallback color */
+        }
+
+        .photo-caption {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            font-weight: 400;
+            text-align: center;
+            color: #7a6868;
+        }
+
+        /* Subtle Audio Helper Element */
+        .audio-notice {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(5px);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="birthday-music" src="music.mp3" autoplay loop></audio>
+
+    <header>
+        <h1>To My Favorite Human</h1>
+        <p>Happy Birthday! Thank you for every single smile, late-night laugh, and adventure. Here are just a few of my favorite moments with you. ❤️</p>
+    </header>
+
+    <div class="gallery-container">
+        
+        <div class="photo-card">
+            <img src="photo1.jpg" alt="Memory One">
+            <div class="photo-caption">Where it all started ✨</div>
+        </div>
+
+        <div class="photo-card">
+            <img src="photo2.jpg" alt="Memory Two">
+            <div class="photo-caption">My favorite day with you 📸</div>
+        </div>
+
+        <div class="photo-card">
+            <img src="photo3.jpg" alt="Memory Three">
+            <div class="photo-caption">Laughing until our stomachs hurt 😂❤️</div>
+        </div>
+
+    </div>
+
+    <div class="audio-notice">
+        🎵 Playing your track...
+    </div>
+
+</body>
+</html>
