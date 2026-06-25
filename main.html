@@ -51,7 +51,7 @@
             font-size: 0.95rem;
             line-height: 1.8;
             font-weight: 400;
-            text-align: justify; /* Makes the paragraph look neat and formal */
+            text-align: justify;
             margin-bottom: 25px;
             color: var(--text-main);
         }
@@ -64,7 +64,12 @@
             text-transform: uppercase;
         }
 
-        /* --- Beautiful Masonry Photo Collage Layout --- */
+        @media (max-width: 900px) {
+            .letter-container { padding: 30px 20px; }
+            .letter-container h1 { font-size: 3rem; }
+        }
+
+        /* --- Slideshow Headline --- */
         .collage-headline {
             font-family: 'Great Vibes', cursive;
             font-size: 2.8rem;
@@ -72,45 +77,45 @@
             margin: 20px 0 30px 0;
         }
 
-        .gallery-collage {
-            max-width: 1100px;
+        /* --- Infinite Loop Slideshow Container --- */
+        .slideshow-container {
+            max-width: 600px;
             width: 100%;
-            column-count: 3; /* Splits gallery into 3 balanced vertical columns */
-            column-gap: 20px;
-            padding: 10px;
-            box-sizing: border-box;
-        }
-
-        /* Adjusts layout for smaller phone screens so pictures don't get squished */
-        @media (max-width: 900px) {
-            .gallery-collage { column-count: 2; }
-            .letter-container { padding: 30px 20px; }
-            .letter-container h1 { font-size: 3rem; }
-        }
-        @media (max-width: 600px) {
-            .gallery-collage { column-count: 1; }
-        }
-
-        .collage-item {
+            height: 450px; /* Adjust height to match your photo layout preference */
+            position: relative;
             background-color: var(--card-bg);
-            break-inside: avoid; /* Prevents an image card from splitting across columns */
-            margin-bottom: 20px;
             padding: 12px;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(90, 74, 74, 0.05);
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.15);
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(90, 74, 74, 0.08);
+            overflow: hidden;
+            box-sizing: border-box;
+            margin-bottom: 40px;
         }
 
-        .collage-item:hover {
-            transform: scale(1.03) translateY(-3px);
-            box-shadow: 0 12px 25px rgba(90, 74, 74, 0.1);
+        .slide-item {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            right: 12px;
+            bottom: 12px;
+            opacity: 0;
+            transition: opacity 1s ease-in-out; /* Smooth transition fade */
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .collage-item img {
+        /* Active slide is visible */
+        .slide-item.active {
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .slide-item img {
             width: 100%;
-            height: auto; /* Lets images keep their original natural height proportions */
-            display: block;
-            border-radius: 8px;
+            height: 100%;
+            object-fit: cover; /* Keeps images beautifully cropped inside the container */
+            border-radius: 10px;
         }
 
         /* Discrete Floating Music Icon Indicator */
@@ -163,54 +168,44 @@
 
     <div class="collage-headline">Our Captured Moments ✨</div>
 
-    <div class="gallery-collage">
-        
-        <div class="collage-item">
-            <img src="photo1.jpg" alt="Our Memory">
-        </div>
-
-        <div class="collage-item">
-            <img src="photo2.jpg" alt="Our Memory">
-        </div>
-
-        <div class="collage-item">
-            <img src="photo3.jpg" alt="Our Memory">
-        </div>
-
-        <div class="collage-item">
-            <img src="photo4.jpg" alt="Our Memory">
-        </div>
-
-        <div class="collage-item">
-            <img src="photo5.jpg" alt="Our Memory">
-        </div>
-
-        <div class="collage-item">
-            <img src="photo6.jpg" alt="Our Memory">
-        </div>
-
-        <div class="collage-item">
-            <img src="photo7.jpg" alt="Our Memory">
-        </div>
-
-        <div class="collage-item">
-            <img src="photo8.jpg" alt="Our Memory">
-        </div>
-
-        <div class="collage-item">
-            <img src="photo9.jpg" alt="Our Memory">
-        </div>
-
-        <div class="collage-item">
-            <img src="photo10.jpg" alt="Our Memory">
-        </div>
-
-        </div>
+    <div class="slideshow-container">
+        <div class="slide-item active"><img src="photo1.jpg" alt="Our Memory"></div>
+        <div class="slide-item"><img src="photo2.jpg" alt="Our Memory"></div>
+        <div class="slide-item"><img src="photo3.jpg" alt="Our Memory"></div>
+        <div class="slide-item"><img src="photo4.jpg" alt="Our Memory"></div>
+        <div class="slide-item"><img src="photo5.jpg" alt="Our Memory"></div>
+        <div class="slide-item"><img src="photo6.jpg" alt="Our Memory"></div>
+        <div class="slide-item"><img src="photo7.jpg" alt="Our Memory"></div>
+        <div class="slide-item"><img src="photo8.jpg" alt="Our Memory"></div>
+        <div class="slide-item"><img src="photo9.jpg" alt="Our Memory"></div>
+        <div class="slide-item"><img src="photo10.jpg" alt="Our Memory"></div>
+    </div>
 
     <div class="music-indicator">
         <div class="pulse"></div>
         <span>Listening to music.mp3</span>
     </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide-item');
+        const totalSlides = slides.length;
+        const slideIntervalTime = 3500; // Time each photo displays (3.5 seconds)
+
+        function showNextSlide() {
+            // Remove the active class from the current visible image
+            slides[currentSlide].classList.remove('active');
+            
+            // Increment index, looping back to 0 when it hits the end
+            currentSlide = (currentSlide + 1) % totalSlides;
+            
+            // Add the active class to the next image to fade it in
+            slides[currentSlide].classList.add('active');
+        }
+
+        // Initialize the cycle loop
+        setInterval(showNextSlide, slideIntervalTime);
+    </script>
 
 </body>
 </html>
